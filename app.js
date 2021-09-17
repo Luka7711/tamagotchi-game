@@ -59,12 +59,13 @@ const createTamagotchi = () => {
   ];
   let defaultImage = heroes[index].hero.avatar;
   heroImg.src = defaultImage;
-  const pickedHero = heroes[index].hero;
+  let pickedHero = heroes[index].hero;
 
   switchImgBtn.addEventListener("click", () => {
     index++;
     if (index === heroes.length) index = 0;
     heroImg.src = heroes[index].hero.avatar;
+    pickedHero = heroes[index].hero;
   });
 
   btn.addEventListener("click", () => {
