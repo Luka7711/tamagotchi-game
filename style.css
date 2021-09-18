@@ -14,6 +14,7 @@ img {
   background-color: #5d908a;
   border-radius: 185px 185px 0 0;
   height: 350px;
+  transition: 2s;
 }
 
 .character-container,
