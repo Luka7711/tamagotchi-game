@@ -1,3 +1,7 @@
+let gochi;
+let index;
+const gochiImg = document.querySelector(".gochi-image");
+
 window.onload = async () => {
   createTamagotchi();
 };
@@ -9,12 +13,42 @@ class Tamogotchi {
     this.age = 1;
     this.status = null;
     this.hero = hero;
+    this.bornTimer = 10;
+    this.eggImg =
+      "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/1137bca4-fed5-46b2-b43e-24357e0b936d/d8cv9bd-e9b98978-a1b8-4e22-b831-4d8f4945c340.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzExMzdiY2E0LWZlZDUtNDZiMi1iNDNlLTI0MzU3ZTBiOTM2ZFwvZDhjdjliZC1lOWI5ODk3OC1hMWI4LTRlMjItYjgzMS00ZDhmNDk0NWMzNDAuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.171mmoI-C2q_rZ3mgBCxlDRAMa9U1Q7rrqIaE3LdsRw";
   }
-  startLife() {}
+
+  playAudio(path) {
+    let audio = new Audio(path);
+    audio.volume = 0.6;
+    audio.play();
+  }
+
+  startLife() {
+    gochiImg.src = this.eggImg;
+
+    this.playAudio("./public/eggcrack.mp3");
+    let timerId = setInterval(() => {
+      this.bornTimer = this.bornTimer - 1;
+      if (this.bornTimer === 0) {
+        clearInterval(timerId);
+        this.startGame();
+      }
+      if (this.bornTimer === 4) {
+        this.playAudio("./public/back.mp3");
+      }
+    }, 1000);
+  }
+
+  startGame() {
+    let audio = new Audio("./public/audio.wav");
+    gochiImg.src = this.hero.eating;
+    let timerId = setInterval(() => {
+      audio.play();
+    }, 1000);
+  }
   endLife() {}
 }
-
-let index;
 
 const createTamagotchi = () => {
   index = 0;
@@ -22,6 +56,8 @@ const createTamagotchi = () => {
   const switchImgBtn = document.querySelector(".btn-next");
   const inputName = document.querySelector("#gochi-name");
   const btn = document.querySelector(".btn-create");
+  const picBtnContainer = document.querySelector(".gochi-pick");
+  const submitForm = document.querySelector(".submit-form");
 
   const heroes = [
     {
@@ -69,7 +105,10 @@ const createTamagotchi = () => {
   });
 
   btn.addEventListener("click", () => {
-    const gochi = new Tamogotchi(inputName.value, pickedHero);
+    gochi = new Tamogotchi(inputName.value, pickedHero);
+    picBtnContainer.style.display = "none";
+    submitForm.style.display = "none";
+    gochi.startLife();
     return gochi;
   });
 };

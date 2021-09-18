@@ -1,22 +1,18 @@
 body {
-  background-color: black;
+  background-color: #614343;
 }
 
 img {
   width: 200px;
 }
 
-.create-form {
-  width: 300px;
-}
-
-.create-form {
-  width: 400px;
+.play-board {
+  width: 350px;
   margin: 200px auto;
-  border: 1px solid #eee;
+  border: 1px solid #727272;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 3px;
+  background-color: #5d908a;
+  border-radius: 185px 185px 0 0;
   height: 350px;
 }
 
